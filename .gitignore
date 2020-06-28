@@ -1,1 +1,5 @@
 .vscode
+
+venv/
+
+test_base_model.py
