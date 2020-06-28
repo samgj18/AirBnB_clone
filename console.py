@@ -4,6 +4,8 @@ This module contains the command interpeter
 for managing Airbnb files
 """
 import cmd
+import models
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
@@ -16,15 +18,31 @@ class HBNBCommand(cmd.Cmd):
 		"""
 		cmd.Cmd.do_help(self, args)
 
+	def do_create(self, args):
+		"""
+		Creates a new instance of BaseModel, saves it to JSON file
+		and prints the id
+		"""
+		tokens = args.split(" ")
+		if not args:
+			print("** class name missing **")
+			return
+		if tokens[0] in models.classes:
+			instance = eval(tokens[0] + "()")
+			instance.save()
+			print("{}".format(instance.id))
+		else:
+			print("** class doesn't exist **")
+
 	@staticmethod
-	def do_quit(*args):
+	def do_quit(args):
 		"""
 		Quit command to exit the program
 		"""
 		quit()
 
 	@staticmethod
-	def do_EOF(*args):
+	def do_EOF(args):
 		"""
 		EOF command to exit the program
 		"""
