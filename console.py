@@ -70,6 +70,9 @@ class HBNBCommand(cmd.Cmd):
 		"""
 		quit()
 
+	def do_all(self, args):
+		pass
+
 
 if __name__ == "__main__":
 	HBNBCommand().cmdloop()
