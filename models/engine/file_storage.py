@@ -28,7 +28,7 @@ class FileStorage:
 		:param obj: object to be settled
 		"""
 		if obj:
-			self.__objects["{}.{}.".format(type(obj).__name__, obj.id)] = obj
+			self.__objects["{}.{}".format(type(obj).__name__, obj.id)] = obj
 
 	def save(self) -> None:
 		"""
@@ -44,7 +44,6 @@ class FileStorage:
 		"""
 		Deserializes the JSON file to __objects (only if the JSON file (__file_path) exists ;
 		otherwise, do nothing. If the file doesnt exist, no exception should be raised)
-		:rtype: None
 		"""
 		try:
 			with open(self.__file_path, encoding='UTF-8') as a_file:

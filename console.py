@@ -23,7 +23,7 @@ class HBNBCommand(cmd.Cmd):
 		Creates a new instance of BaseModel, saves it to JSON file
 		and prints the id
 		"""
-		tokens = args.split(" ")
+		tokens = args.split()
 		if not args:
 			print("** class name missing **")
 			return
@@ -31,6 +31,28 @@ class HBNBCommand(cmd.Cmd):
 			instance = eval(tokens[0] + "()")
 			instance.save()
 			print("{}".format(instance.id))
+		else:
+			print("** class doesn't exist **")
+
+	def do_show(self, args):
+		"""
+		Show string representation of an instance
+		"""
+		tokens = args.split()
+		objects = models.storage.all()
+		if len(tokens) == 0:
+			print("** class name missing **")
+			return
+		if tokens[0] in models.classes:
+			if len(tokens) < 2:
+				print("** instance id missing **")
+				return
+			else:
+				key = (tokens[0] + "." + tokens[1])
+				try:
+					print(objects[key])
+				except KeyError:
+					print("** no instance found **")
 		else:
 			print("** class doesn't exist **")
 
