@@ -34,7 +34,7 @@ class BaseModel:
 		models.storage.save()
 
 	def to_dict(self):
-		dic = dict(**self.__dict__)
+		dic = self.__dict__
 		dic['__class__'] = str(type(self).__name__)
 		dic['created_at'] = self.created_at.isoformat()
 		dic['updated_at'] = self.updated_at.isoformat()
