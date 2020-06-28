@@ -1,6 +1,11 @@
 #!/usr/bin/python3
+"""
+Base class for models contains id, created_at
+and updated at attributes.
+"""
 import uuid
 from datetime import datetime
+import models
 
 
 class BaseModel():
