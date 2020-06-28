@@ -5,3 +5,7 @@ venv/
 test_base_model.py
 
 .idea/
+
+file.json
+
+test_save_reload_base_model.py
