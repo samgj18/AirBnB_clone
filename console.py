@@ -6,9 +6,11 @@ for managing Airbnb files
 import cmd
 import models
 from models.base_model import BaseModel
+from datetime import datetime
 
 
 class HBNBCommand(cmd.Cmd):
+
     intro = 'Welcome to Holberton shell. Type help or ? to list commands.\n'
     prompt = '(hbnb) '
 
@@ -111,6 +113,38 @@ class HBNBCommand(cmd.Cmd):
         EOF command to exit the program
         """
         quit()
+
+    def do_update(self, args):
+        """
+        Update an instance based on the class name and id by adding
+        or updating attribute (save the change into the JSON file).
+        """
+        tokens = args.split()
+        objects = models.storage.all()
+        if len(tokens) == 0:
+            print("** class name missing **")
+            return
+        if tokens[0] in models.classes:
+            if len(tokens) < 2:
+                print("** instance id missing **")
+                return
+            elif len(tokens) < 3:
+                print("** attribute name missing **")
+                return
+            elif len(tokens) < 4:
+                print("** value missing **")
+                return
+            else:
+                key = (tokens[0] + "." + tokens[1])
+                try:
+                    objects[key].__dict__[tokens[2]] = tokens[3]
+                    objects[key].__dict__[
+                        "updated_at"] = datetime.now()
+                    models.storage.save()
+                except KeyError:
+                    print("** no instance found **")
+        else:
+            print("** class doesn't exist **")
 
 
 if __name__ == "__main__":
