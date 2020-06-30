@@ -6,6 +6,7 @@ for managing Airbnb files
 import cmd
 import models
 from models.base_model import BaseModel
+from models.user import User
 from datetime import datetime
 
 
@@ -72,7 +73,11 @@ class HBNBCommand(cmd.Cmd):
             return
         tokens = args.split()
         if tokens[0] in models.classes:
-            print(objects)
+            for key, value in objects.items():
+                model = key.split('.')
+                if (model[0] == tokens[0]):
+                    elements.append(str(value))
+            print(elements)
         else:
             print("** class doesn't exist **")
 
