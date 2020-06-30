@@ -5,7 +5,9 @@ for the airbnb clone project. A json data format
 for serialization and deserialization of data.
 """
 import json
+import models
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -50,6 +52,7 @@ class FileStorage:
             with open(self.__file_path, encoding='UTF-8') as a_file:
                 objects = json.load(a_file)
             for key, value in objects.items():
-                self.__objects[key] = BaseModel(**value)
+                self.__objects[key] = models.classes[value["__class__"]](
+                    **value)
         except FileNotFoundError:
             pass
