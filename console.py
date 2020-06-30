@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
             for key, value in objects.items():
                 print(value)
         elif (token[0] in models.classes):
-            for key, value in objects.items():
+            for token[0], value in objects.items():
                 print(value)
         else:
             print("** class doesn't exist **")
