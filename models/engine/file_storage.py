@@ -20,7 +20,7 @@ class FileStorage:
         Returns the dictionary __objects
         :return: The dictionary __objects
         """
-        return dict(self.__objects)
+        return self.__objects
 
     def new(self, obj: object) -> None:
         """
@@ -42,10 +42,9 @@ class FileStorage:
 
     def reload(self) -> None:
         """
-        Deserializes the JSON file to __objects
-                (only if the JSON file (__file_path) exists ;
-        otherwise, do nothing. If the file doesnt exist,
-                no exception should be raised)
+        Deserializes the JSON file to __objects (only if the
+        JSON file (__file_path) exists; otherwise, do nothing.
+        If the file doesnt exist, no exception should be raised)
         """
         try:
             with open(self.__file_path, encoding='UTF-8') as a_file:
