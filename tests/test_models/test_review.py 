@@ -1,65 +1,51 @@
 #!/usr/bin/python3
-"""
-Unitesting for review
-"""
+"""Module for test Review class"""
 import unittest
-import os
+import json
 import pep8
+import datetime
+
 from models.review import Review
 from models.base_model import BaseModel
 
 
 class TestReview(unittest.TestCase):
+    """Test Review class implementation"""
 
-    @classmethod
-    def setUpClass(cls):
-        cls.Mitali = Review()
-        cls.Mitali.place_id = "SF"
-        cls.Mitali.user_id = "Test"
-        cls.Mitali.text = "Blue"
+    def test_doc_module(self):
+        """Module documentation"""
+        doc = Review.__doc__
+        self.assertGreater(len(doc), 1)
 
-    @classmethod
-    def tearDownClass(cls):
-        del cls.Mitali
-        try:
-            os.remove("file.json")
-        except FileNotFoundError:
-            pass
+    def test_pep8_conformance_review(self):
+        """Test that models/review.py conforms to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/review.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
-    def test_style_check(self):
-        """
-        Tests pep8 style
-        """
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/review.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
+    def test_pep8_conformance_test_review(self):
+        """Test that tests/test_models/test_review.py conforms to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        res = pep8style.check_files(['tests/test_models/test_review.py'])
+        self.assertEqual(res.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
-    def test_is_sub(self):
-        self.assertTrue(issubclass(self.Mitali.__class__, BaseModel), True)
+    def test_doc_constructor(self):
+        """Constructor documentation"""
+        doc = Review.__init__.__doc__
+        self.assertGreater(len(doc), 1)
 
-    def test_checking_for_functions(self):
-        self.assertIsNotNone(Review.__doc__)
+    def test_class(self):
+        """Validate the types of the attributes an class"""
+        with self.subTest(msg='Inheritance'):
+            self.assertTrue(issubclass(Review, BaseModel))
 
-    def test_has_attr(self):
-        self.assertTrue('id' in self.Mitali.__dict__)
-        self.assertTrue('created_at' in self.Mitali.__dict__)
-        self.assertTrue('updated_at' in self.Mitali.__dict__)
-        self.assertTrue('place_id' in self.Mitali.__dict__)
-        self.assertTrue('text' in self.Mitali.__dict__)
-        self.assertTrue('user_id' in self.Mitali.__dict__)
-
-    def test_strings(self):
-        self.assertEqual(type(self.Mitali.text), str)
-        self.assertEqual(type(self.Mitali.place_id), str)
-        self.assertEqual(type(self.Mitali.user_id), str)
-
-    def test_save(self):
-        self.Mitali.save()
-        self.assertNotEqual(self.Mitali.created_at, self.Mitali.updated_at)
-
-    def test_to_dict(self):
-        self.assertEqual('to_dict' in dir(self.Mitali), True)
+        with self.subTest(msg='Attributes'):
+            self.assertIsInstance(Review.place_id, str)
+            self.assertIsInstance(Review.user_id, str)
+            self.assertIsInstance(Review.text, str)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

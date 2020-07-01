@@ -1,62 +1,50 @@
 #!/usr/bin/python3
-"""
-module to test city
-"""
+"""Module for test City class"""
 import unittest
-import os
+import json
 import pep8
+import datetime
+
 from models.city import City
 from models.base_model import BaseModel
 
 
 class TestCity(unittest.TestCase):
+    """Test City class implementation"""
 
-    @classmethod
-    def setUpClass(cls):
-        cls.cty = City()
-        cls.cty.name = "SF"
-        cls.cty.state_id = "CA"
+    def test_doc_module(self):
+        """Module documentation"""
+        doc = City.__doc__
+        self.assertGreater(len(doc), 1)
 
-    @classmethod
-    def tearDownClass(cls):
-        del cls.cty
-        try:
-            os.remove("file.json")
-        except FileNotFoundError:
-            pass
+    def test_pep8_conformance_city(self):
+        """Test that models/city.py conforms to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/city.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
-    def test_style_check(self):
-        """
-        Tests pep8 style
-        """
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/city.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
+    def test_pep8_conformance_test_city(self):
+        """Test that tests/test_models/test_city.py conforms to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        res = pep8style.check_files(['tests/test_models/test_city.py'])
+        self.assertEqual(res.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
-    def test_subclass(self):
-        self.assertTrue(issubclass(self.cty.__class__, BaseModel), True)
+    def test_doc_constructor(self):
+        """Constructor documentation"""
+        doc = City.__init__.__doc__
+        self.assertGreater(len(doc), 1)
 
-    def test_functions(self):
-        self.assertIsNotNone(City.__doc__)
+    def test_class(self):
+        """Validate the types of the attributes an class"""
+        with self.subTest(msg='Inheritance'):
+            self.assertTrue(issubclass(City, BaseModel))
 
-    def test_has_attr(self):
-        self.assertTrue('id' in self.cty.__dict__)
-        self.assertTrue('created_at' in self.cty.__dict__)
-        self.assertTrue('updated_at' in self.cty.__dict__)
-        self.assertTrue('state_id' in self.cty.__dict__)
-        self.assertTrue('name' in self.cty.__dict__)
-
-    def test_strings(self):
-        self.assertEqual(type(self.cty.name), str)
-        self.assertEqual(type(self.cty.state_id), str)
-
-    def test_save(self):
-        self.cty.save()
-        self.assertNotEqual(self.cty.created_at, self.cty.updated_at)
-
-    def test_to_dict(self):
-        self.assertEqual('to_dict' in dir(self.cty), True)
+        with self.subTest(msg='Attributes'):
+            self.assertIsInstance(City.name, str)
+            self.assertIsInstance(City.state_id, str)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

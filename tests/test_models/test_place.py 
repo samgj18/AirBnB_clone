@@ -1,90 +1,59 @@
 #!/usr/bin/python3
-"""
-This module contains test for
-places
-"""
+"""Module for test Place class"""
 import unittest
-import os
+import json
 import pep8
+import datetime
+
 from models.place import Place
 from models.base_model import BaseModel
 
 
 class TestPlace(unittest.TestCase):
+    """Test State class implementation"""
 
-    @classmethod
-    def setUpClass(cls):
-        cls.place = Place()
-        cls.place.city_id = "Delhi"
-        cls.place.user_id = "Mitali"
-        cls.place.name = "Vikaspuri"
-        cls.place.description = "Beautiful place"
-        cls.place.number_rooms = 0
-        cls.place.number_bathrooms = 0
-        cls.place.max_guest = 0
-        cls.place.price_by_night = 0
-        cls.place.latitude = 0.0
-        cls.place.longitude = 0.0
-        cls.place.amenity_ids = []
+    def test_doc_module(self):
+        """Module documentation"""
+        doc = Place.__doc__
+        self.assertGreater(len(doc), 1)
 
-    @classmethod
-    def tearDownClass(cls):
-        del cls.place
-        try:
-            os.remove("file.json")
-        except FileNotFoundError:
-            pass
+    def test_pep8_conformance_place(self):
+        """Test that models/place.py conforms to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/place.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
-    def test_style_check(self):
-        """
-        Tests pep8 style
-        """
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/place.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
+    def test_pep8_conformance_test_place(self):
+        """Test that tests/test_models/test_place.py conforms to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        res = pep8style.check_files(['tests/test_models/test_place.py'])
+        self.assertEqual(res.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
-    def test_subclass(self):
-        self.assertTrue(issubclass(self.place.__class__, BaseModel), True)
+    def test_doc_constructor(self):
+        """Constructor documentation"""
+        doc = Place.__init__.__doc__
+        self.assertGreater(len(doc), 1)
 
-    def test_functions(self):
-        self.assertIsNotNone(Place.__doc__)
+    def test_class(self):
+        """Validate the types of the attributes an class"""
+        with self.subTest(msg='Inheritance'):
+            self.assertTrue(issubclass(Place, BaseModel))
 
-    def test_has_attr(self):
-        self.assertTrue('id' in self.place.__dict__)
-        self.assertTrue('created_at' in self.place.__dict__)
-        self.assertTrue('updated_at' in self.place.__dict__)
-        self.assertTrue('city_id' in self.place.__dict__)
-        self.assertTrue('user_id' in self.place.__dict__)
-        self.assertTrue('name' in self.place.__dict__)
-        self.assertTrue('description' in self.place.__dict__)
-        self.assertTrue('number_rooms' in self.place.__dict__)
-        self.assertTrue('number_bathrooms' in self.place.__dict__)
-        self.assertTrue('max_guest' in self.place.__dict__)
-        self.assertTrue('price_by_night' in self.place.__dict__)
-        self.assertTrue('latitude' in self.place.__dict__)
-        self.assertTrue('longitude' in self.place.__dict__)
-        self.assertTrue('amenity_ids' in self.place.__dict__)
-
-    def test_strings(self):
-        self.assertEqual(type(self.place.city_id), str)
-        self.assertEqual(type(self.place.user_id), str)
-        self.assertEqual(type(self.place.name), str)
-        self.assertEqual(type(self.place.description), str)
-        self.assertEqual(type(self.place.number_rooms), int)
-        self.assertEqual(type(self.place.number_bathrooms), int)
-        self.assertEqual(type(self.place.max_guest), int)
-        self.assertEqual(type(self.place.price_by_night), int)
-        self.assertEqual(type(self.place.latitude), float)
-        self.assertEqual(type(self.place.longitude), float)
-        self.assertEqual(type(self.place.amenity_ids), list)
-
-    def test_save(self):
-        self.place.save()
-        self.assertNotEqual(self.place.created_at, self.place.updated_at)
-
-    def test_to_dict(self):
-        self.assertEqual('to_dict' in dir(self.place), True)
+        with self.subTest(msg='Attributes'):
+            self.assertIsInstance(Place.city_id, str)
+            self.assertIsInstance(Place.user_id, str)
+            self.assertIsInstance(Place.name, str)
+            self.assertIsInstance(Place.description, str)
+            self.assertIsInstance(Place.number_rooms, int)
+            self.assertIsInstance(Place.number_bathrooms, int)
+            self.assertIsInstance(Place.max_guest, int)
+            self.assertIsInstance(Place.price_by_night, int)
+            self.assertIsInstance(Place.latitude, float)
+            self.assertIsInstance(Place.longitude, float)
+            self.assertIsInstance(Place.amenity_ids, list)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
