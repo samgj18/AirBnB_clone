@@ -10,3 +10,7 @@ class State(BaseModel):
     public class attrb name
     """
     name = ""
+
+    def __init__(self, *args, **kwargs):
+        """State constructor"""
+        super().__init__(*args, **kwargs)
