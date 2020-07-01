@@ -110,15 +110,13 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    @staticmethod
-    def do_quit(args):
+    def do_quit(self, args):
         """
         Quit command to exit the program
         """
         quit()
 
-    @staticmethod
-    def do_EOF(args):
+    def do_EOF(self, args):
         """
         EOF command to exit the program
         """
