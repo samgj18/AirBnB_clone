@@ -16,8 +16,6 @@ from models.amenity import Amenity
 
 
 class HBNBCommand(cmd.Cmd):
-
-    intro = 'Welcome to Holberton shell. Type help or ? to list commands.\n'
     prompt = '(hbnb) '
 
     def do_help(self, args):
@@ -110,15 +108,13 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    @staticmethod
-    def do_quit(args):
+    def do_quit(self, args):
         """
         Quit command to exit the program
         """
         quit()
 
-    @staticmethod
-    def do_EOF(args):
+    def do_EOF(self, args):
         """
         EOF command to exit the program
         """
@@ -155,6 +151,12 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
         else:
             print("** class doesn't exist **")
+
+    def emptyline(self):
+        """
+        Returns back to the prompt
+        """
+        pass
 
 
 if __name__ == "__main__":

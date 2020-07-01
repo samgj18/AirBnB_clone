@@ -27,14 +27,24 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
+        """
+        Method returns string representation
+        """
         return "[{}] ({}) {}".format(type(self).__name__, self.id,
                                      str(self.__dict__))
 
     def save(self):
+        """
+        Method to update attrb updated_at
+        """
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
+        """
+        Method to return a dict containing all key/value of __dict__
+        instance
+        """
         dic = dict(**self.__dict__)
         dic['__class__'] = type(self).__name__
         dic['created_at'] = self.created_at.isoformat()
