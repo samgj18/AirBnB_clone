@@ -2,8 +2,6 @@
 
 venv/
 
-test_base_model.py
-
 .idea/
 
 file.json
