@@ -16,8 +16,6 @@ from models.amenity import Amenity
 
 
 class HBNBCommand(cmd.Cmd):
-
-    intro = 'Welcome to Holberton shell. Type help or ? to list commands.\n'
     prompt = '(hbnb) '
 
     def do_help(self, args):
