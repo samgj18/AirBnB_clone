@@ -156,6 +156,12 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
+    def emptyline(self):
+        """
+        Returns back to the prompt
+        """
+        pass
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
