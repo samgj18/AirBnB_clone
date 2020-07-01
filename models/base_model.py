@@ -14,6 +14,15 @@ class BaseModel:
     """
 
     def __init__(self, *args, **kwargs):
+        """
+        Object constructor.
+        Attributes:
+        ----------
+        id [str] -- UUID generated with python uuid.
+        created_at [datetime] -- contains datetime obj.
+        updated_at [datetime] -- contains datetime obj.
+        __class__ [str] -- BaseModel class.
+        """
         if kwargs:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
